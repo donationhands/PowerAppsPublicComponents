@@ -1,0 +1,104 @@
+ComponentDefinitions:
+  LoadingModal:
+    DefinitionType: CanvasComponent
+    AllowCustomization: false
+    CustomProperties:
+      ImageBorderColor:
+        PropertyKind: Input
+        DisplayName: Image Border Color
+        Description: A custom property
+        DataType: Color
+        Default: =RGBA(252, 245, 222, 1)
+      ImageBorderFill:
+        PropertyKind: Input
+        DisplayName: Image Border Fill
+        Description: The border color fill for the image box
+        DataType: Color
+        Default: =RGBA(255, 255, 255, 0.9)
+      LoadingDescription:
+        PropertyKind: Input
+        DisplayName: Loading Description
+        Description: More description html or only text (Optional)
+        DataType: Text
+        Default: ="<div style='text-align:center; font-size:0.8em'>Show your <b><font color=blue>HTML</font></b> text here.</div>"
+      LoadingImage:
+        PropertyKind: Input
+        DisplayName: Loading Image
+        Description: specify the loading image to display
+        DataType: Image
+        Default: ='Spin@1x-1.0s-200px-200px'
+      LoadingText:
+        PropertyKind: Input
+        DisplayName: Loading Text
+        Description: text to display for the loading status
+        DataType: Text
+        Default: ="Loading..."
+      ShowLoaderBorder:
+        PropertyKind: Input
+        DisplayName: Show Loader Border
+        Description: A custom property
+        DataType: Boolean
+        Default: =true
+    Children:
+      - HtmlText1:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            AutoHeight: =true
+            Font: =Font.'Open Sans'
+            HtmlText: =LoadingModal.LoadingDescription
+            Size: =12
+            Width: =Parent.Width * 60%
+            X: =(Parent.Width-Self.Width)/2
+            Y: =lblCaptionLoadingModal.Y+lblCaptionLoadingModal.Height+5
+      - lblCaptionLoadingModal:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            AutoHeight: =true
+            BorderColor: =Self.Fill
+            BorderStyle: =BorderStyle.None
+            DisabledFill: =RGBA(0,0,0,0)
+            Fill: =Color.Transparent
+            Font: =Font.Lato
+            FontWeight: =FontWeight.Lighter
+            Size: =16
+            Text: =LoadingModal.LoadingText
+            Width: =Parent.Width * 60%
+            X: =(Parent.Width-Self.Width)/2
+            Y: =ImageBoxWrapper.Y+ImageBoxWrapper.Height+20
+      - ImageBoxWrapper:
+          Control: GroupContainer@1.3.0
+          Variant: AutoLayout
+          Properties:
+            BorderColor: =LoadingModal.ImageBorderColor
+            BorderStyle: =BorderStyle.Dashed
+            BorderThickness: =4
+            DropShadow: =DropShadow.None
+            Height: =300
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            RadiusBottomLeft: =7
+            RadiusBottomRight: =7
+            RadiusTopLeft: =7
+            RadiusTopRight: =7
+            Visible: =LoadingModal.ShowLoaderBorder
+            Width: =300
+            X: =(Parent.Width - Self.Width)/2
+            Y: =Parent.Width*10%
+          Children:
+            - LoadingImage_1:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =Self.Fill
+                  DisplayMode: =DisplayMode.View
+                  Fill: =Color.Transparent
+                  Height: =200
+                  HoverBorderColor: =Self.Fill
+                  HoverFill: =Self.Fill
+                  Image: =LoadingModal.LoadingImage
+                  PressedBorderColor: =Self.Fill
+                  PressedFill: =Self.Fill
+                  Width: =200
+                  X: =(Parent.Width - Self.Width)/2
+                  Y: =Parent.Width*15%
